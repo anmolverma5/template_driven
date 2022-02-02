@@ -1,11 +1,13 @@
 
 var cfg = require("./knex-cfg").client;
-knex.select("id", "name").from("mytable").asCallback(function(err, rows)
+var screen = require('./screen');
+screen.clear();
+knex.select("id", "name", 'phone', 'email', 'country', 'list').from("mytable").asCallback(function(err, rows)
 {
     if(err){
-        console.log(err);
+        screen.write(err);
     }else{
-        console.log(rows);
+        screen.write(rows, 'pretty');
     }
     knex.destroy();
     console.log('Done.')
