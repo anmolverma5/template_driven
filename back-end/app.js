@@ -1,13 +1,14 @@
-const express = require('express');
-var indexRouter = require('./routes/index');
-var cors = require('cors');
 
+var cfg = require("./knex-cfg").client;
+knex.select("id", "name").from("mytable").asCallback(function(err, rows)
+{
+    if(err){
+        console.log(err);
+    }else{
+        console.log(rows);
+    }
+    knex.destroy();
+    console.log('Done.')
 
-const app = express();
-app.use(cors())
-app.use(express.json());
-app.use('/', indexRouter);
+});
 
-app.listen(4000, () => {
-    console.log('listening on port 4000');
-})
