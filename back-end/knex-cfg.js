@@ -7,5 +7,6 @@ module.exports =
       user : 'root',
       password : '',
       database : 'fake'
-    }
+    },
+    debug: true
   });

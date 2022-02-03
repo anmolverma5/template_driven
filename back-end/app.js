@@ -2,15 +2,22 @@
 var cfg = require("./knex-cfg").client;
 var screen = require('./screen');
 screen.clear();
-knex.select("id", "name", 'phone', 'email', 'country', 'list').from("mytable").asCallback(function(err, rows)
-{
-    if(err){
-        screen.write(err);
-    }else{
-        screen.write(rows, 'pretty');
-    }
+
+var new_id = 10;
+var query = knex.raw("SELECT * FROM mytable WHERE id = ?", + [new_id]);
+run(query, "pretty");
+
+
+
+function run(knexQuery, mode){
+return knexQuery.then(function(rows){
+    screen.write(rows);
+})
+.catch(function(err){
+    screen.write("Ooops");
+    screen.write(err);
+})
+.finally(function(){
     knex.destroy();
-    console.log('Done.')
-
-});
-
+})
+}
