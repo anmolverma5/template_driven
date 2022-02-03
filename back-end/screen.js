@@ -11,6 +11,8 @@ var screen = {
             output = JSON.stringify(data, null, 4);
         }else if(mode === "pretty"){
             output = prettyjson.render(data);
+        }else if (mode ===""){
+            output = data;
         }
         console.log(output);
     }
