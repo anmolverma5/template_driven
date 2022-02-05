@@ -1,15 +1,23 @@
 
-var cfg = require("./knex-cfg").client;
+// var cfg = require("./knex-cfg").client;
+// var screen = require('./screen');
+// screen.clear();
 var screen = require('./screen');
+var db = require('./db');
+var users = require('./users-repo');
+
 screen.clear();
 
-
-
-
-
-
-
-
+users.listUsersByEmail("kumar@gmail.com").then(function(result){
+   screen.write(result , "json");
+})
+.catch(function(err){
+    screen.write('Ooops');
+    screen.write(err);
+})
+.finally(function(){
+  db.destroy();
+});
 
 
 
