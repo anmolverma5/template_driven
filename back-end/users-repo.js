@@ -13,5 +13,13 @@ module.exports =
   listUsersByEmail: function(searchTxt)
   {
       return db("users").select("*").where("email","like","%"+searchTxt+"%").then();
+  },
+  DeleteUsers: function(usersID)
+  {
+    return db('users').where('id',usersID).del().then();
+  },
+  AddUsers: function(UserAdd)
+  {
+    return db('users').insert(UserAdd, "id").then();
   }
 };

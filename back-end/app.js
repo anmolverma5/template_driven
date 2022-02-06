@@ -1,4 +1,4 @@
-
+"user strict";
 // var cfg = require("./knex-cfg").client;
 // var screen = require('./screen');
 // screen.clear();
@@ -6,22 +6,65 @@ var screen = require('./screen');
 var db = require('./db');
 var users = require('./users-repo');
 
-screen.clear();
 
-users.listUsersByEmail("kumar@gmail.com").then(function(result){
-   screen.write(result , "json");
-})
-.catch(function(err){
-    screen.write('Ooops');
-    screen.write(err);
-})
-.finally(function(){
-  db.destroy();
+// var new_user = { firstname: 'mohan', lastname: 'verma', email: 'mohan@gmail.com', password: 12345678 };
+// screen.clear();
+
+// users.AddUsers(new_user).then(function(result){
+//     screen.write(result);
+// })
+// .catch(function(err){
+//   screen.write('Ooops')
+//   console.log(err);
+// })
+// .finally(function(){
+//     knex.destroy();
+// })
+
+const http = require('http');
+
+
+const server = http.createServer();
+server.on('request', (request, response) => {
+    console.log('this is an incoming request');
 });
 
+server.listen(8040);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* VALIDATING DATA  */ 
+
+// users.listUsersByEmail("kumar@gmail.com").then(function(result){
+//    screen.write(result , "json");
+// })
+// .catch(function(err){
+//     screen.write('Ooops');
+//     screen.write(err);
+// })
+// .finally(function(){
+//   db.destroy();
+// });
 
 
 
