@@ -5,6 +5,29 @@
 var screen = require('./screen');
 var db = require('./db');
 var users = require('./users-repo');
+var jsonBody = require('body/json');
+var formidable = require('formidable');
+var axios = require('axios');
+var fs = require('fs');
+const { response } = require('express');
+
+var data = data;
+ 
+axios({
+  method: 'post',
+  url: 'http://localhost:8080/users',
+  data: {
+     data
+  },
+  TransformRequest: () => {
+    const newData = data;
+  }
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.log(error);
+})
+
 
 
 // var new_user = { firstname: 'mohan', lastname: 'verma', email: 'mohan@gmail.com', password: 12345678 };
@@ -21,15 +44,42 @@ var users = require('./users-repo');
 //     knex.destroy();
 // })
 
-const http = require('http');
 
 
-const server = http.createServer();
-server.on('request', (request, response) => {
-    console.log('this is an incoming request');
-});
 
-server.listen(8040);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const http = require('http');
+
+
+// const server = http.createServer();
+// server.on('request', (request, response) => {
+  
+//     console.log('this is an incoming request');
+// });
+
+// server.listen(8040);
 
 
 
