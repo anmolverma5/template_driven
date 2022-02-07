@@ -9,28 +9,99 @@ var jsonBody = require('body/json');
 var formidable = require('formidable');
 var axios = require('axios');
 var fs = require('fs');
-const { response } = require('express');
+var http = require('http');
+var express = require('express');
+var bodyParser = require('body-parser');
+const app =  express();
 
-var data = data;
- 
-axios({
-  method: 'post',
-  url: 'http://localhost:8080/users',
-  data: {
-     data
-  },
-  TransformRequest: () => {
-    const newData = data;
-  }
-}).then((response) => {
-  console.log(response.data);
-}).catch((error) => {
-  console.log(error);
+const store = require('./route/store.js')
+app.use(bodyParser.json());
+
+const port = 3000;
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
+app.post('/user', (req, res) => {
+    // TODO insert user
+const firstname = req.body.firstname ? req.body.firstname : '';
+const lastname = req.body.lastname ? req.body.lastname : '';
+const email = req.body.email ? req.body.email : '';
+const password = req.body.password ? req.body.password : '';
+console.log(firstname);
+
+if (!firstname) {
+    return res.json({success: false, message: 'firstname is required'});
+}else if (!lastname){
+    return res.json({success: false, message: 'lastname is required'});
+}else if (!email){
+    return res.json({success: false, message: 'email is required'});
+}else if (!password){
+    return res.json({success: false, message: 'password is required'});
+}
+knex('users')
+    .insert({firstname,lastname,email, password})
+    .then((id) => {
+    //get user by id
+    knex('users')
+        .select({
+        id: 'id',
+        firstname: 'firstname',
+        lastname: 'lastname',
+        email: 'email',
+        password: 'password',
+    })
+        .where({id})
+        .then((users) => {
+        return res.json(users[0]);
+    })
+})
+    .catch((err) => {
+    console.error(err);
+    return res.json({success: false, message: 'An error occurred, please try again later.'});
+});
+});
+
+
+// var port = 5000;
+// app.get('/', function(req,res){
+//     res.send("Hello WORLD");
+// });
+// app.listen(5000, function(err){
+//     console.log('Runing on Port '+ port);
+// });
+// var router = function (){
+//     authRouter.route('/signup')
+//     .post(function (req, res){
+//         console.log(req.body);
+//     });
+//     return req.body;
+// };
+
+
+app.use(express.static('public'))
+app.use(bodyParser.json())
+
+app.post('/createUser', (req, res) => {
+  store
+    .createUser({
+      firstname: req.body.firstname,
+      lastname:  req.body.lastname,
+      email:     req.body.email,
+      password:  req.body.password
+    })
+    .then(() => res.sendStatus(200))
+    console.log(req.body);
+})
+app.listen(7555, () => {
+  console.log('Server running on http://localhost:7555')
 })
 
 
+     
 
-// var new_user = { firstname: 'mohan', lastname: 'verma', email: 'mohan@gmail.com', password: 12345678 };
 // screen.clear();
 
 // users.AddUsers(new_user).then(function(result){
@@ -41,8 +112,43 @@ axios({
 //   console.log(err);
 // })
 // .finally(function(){
-//     knex.destroy();
+//     // knex.destroy();
 // })
+
+
+
+
+/* RUNING ON PORT GET DATA USEING AXIOS PACKAGE  */ 
+ 
+// axios({
+//   method: 'post',
+//   url: 'http://localhost:8080/users',
+//   data: {
+//      firstname: ['mohan'],
+//      lastname: ['verma'],
+//      email: ['mohan@gmail.com'],
+//      password: ['12345678']
+//   }
+//   TransformRequest: () => {
+//     const newData = data;
+//     return JSON.stringify(newData);
+//   }
+// })
+// .then((response) => {
+//   console.log(response.data);
+// })
+// .catch((error) => {
+//   console.log(error); 
+// })
+// const server = http.createServer();
+
+// var new_user = { firstname: 'mohan', lastname: 'verma', email: 'mohan@gmail.com', password: 12345678 };
+
+
+
+
+// var new_user = { firstname: 'mohan', lastname: 'verma', email: 'mohan@gmail.com', password: 12345678 };
+
 
 
 
