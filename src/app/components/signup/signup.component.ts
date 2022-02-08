@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './api.service';
+import { Users } from '../model/users';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -7,13 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
   model: any = {};
-
-  onSubmit() {
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model))
+  showMsg: boolean = false;
+  // onSubmit() {
+  //   //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model))
+  // }
+  constructor(private apiService:ApiService, private router: Router) {}
+ 
+  ngOnInit() {
   }
-  constructor() { }
-
-  ngOnInit(): void {
+ 
+ 
+  onSubmit() {
+    this.apiService.addPerson(this.model)
+      .subscribe(data => {
+        console.warn(data)
+        const navigationExtras: NavigationExtras = {state: {data: 'Regis'}};
+        // this.router.navigate(['/login'], navigationExtras);
+      }) 
   }
 
 }
