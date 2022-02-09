@@ -8,16 +8,18 @@
                 <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                     <div class="form-group">
                         <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" required />
+                        <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }"  required minlength="3" />
                         <div *ngIf="f.submitted && firstname.invalid" class="invalid-feedback">
                             <div *ngIf="firstname.errors?.['required']">First Name is required</div>
+                            <div *ngIf="firstname.errors?.['minlength']">First Name must be at least 3 characters</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required />
+                        <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required minlength="3" />
                         <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
                             <div *ngIf="lastname.errors?.['required']">Last Name is required</div>
+                            <div *ngIf="firstname.errors?.['minlength']">Last Name must be at least 3 characters</div>
                         </div>
                     </div>
                     <div class="form-group">
