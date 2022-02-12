@@ -3,20 +3,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h3>Login</h3>
+                <h3>Sign Up</h3>
+                
                 <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                     <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required />
-                        <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
-                            <div *ngIf="firstName.errors?.['required']">First Name is required</div>
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" required />
+                        <div *ngIf="f.submitted && firstname.invalid" class="invalid-feedback">
+                            <div *ngIf="firstname.errors?.['required']">First Name is required</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
-                        <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
-                            <div *ngIf="lastName.errors?.['required']">Last Name is required</div>
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required />
+                        <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
+                            <div *ngIf="lastname.errors?.['required']">Last Name is required</div>
                         </div>
                     </div>
                     <div class="form-group">

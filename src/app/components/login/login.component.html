@@ -4,6 +4,8 @@
             <div class="col-md-8 offset-md-2">
                 <h3>Login</h3>
                 <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <span *ngIf="infoMessage.length > 0">{{ infoMessage }}</span>
+
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email />
