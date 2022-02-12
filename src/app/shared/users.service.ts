@@ -10,10 +10,8 @@ import { Users } from '../components/model/users';
   providedIn: 'root'
 })
 export class UsersService {
-  messageSource = new BehaviorSubject<any>('Total Work TODO=>');
-  currentMessage = this.messageSource.asObservable();
   todoitemscount: any;
-  data: Users[] = [];
+  users: Users[] = [];
   todoItems = new BehaviorSubject<Users[]>([]);
   todoItemsList$ = this.todoItems.asObservable();
   completed: any;
@@ -23,19 +21,19 @@ export class UsersService {
     this.getData()
       .pipe(
         map((res: any) =>
-          res.map((data: any) => {
+          res.map((users: any) => {
             return {
-              id: data.id,
-              title: data.email,
+              id: users.id,
+              email: users.email,
             };
           })
         )
       )
-      .subscribe((data: any) => {
-        console.warn(data);
-        this.data = data;
-        this.todoItems.next(data);
-        this.todoitemscount = this.data.length;
+      .subscribe((users: any) => {
+        console.warn(users);
+        this.users = users;
+        this.todoItems.next(users);
+        this.todoitemscount = this.users.length;
         //console.warn(this.todoitemscount);
       });
   }

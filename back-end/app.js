@@ -10,10 +10,12 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 const app =  express();
+const { validationResult } = require('express-validator');
+
 
 const store = require('./route/store.js')
 
-const port = 3000;
+const port =  process.env.PORT || 3000;
 
 
 
@@ -45,16 +47,12 @@ app.get('/getusers', (req, res) => {
 users.listUsers().then(function(result){
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
-   screen.write(result , "json");
+   screen.write(result , "pretty");
 })
 .catch(function(err){
     screen.write('get users not working');
     screen.write(err);
 })
-.finally(function(){
-  db.destroy();
-});
-
 });
 
 app.post('/users', (req, res) => {
@@ -65,6 +63,9 @@ const firstname = req.body.firstname ? req.body.firstname : '';
 const lastname = req.body.lastname ? req.body.lastname : '';
 const email = req.body.email ? req.body.email : '';
 const password = req.body.password ? req.body.password : '';
+bcrypt.hash(req.body.password,10).then((hash)=>{
+        password: hash
+    })
 console.log(firstname);
 
 if (!firstname) {
